@@ -1,38 +1,118 @@
+body {
+  background-color: rgb(245, 245, 245);
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  /* text-align: center; */
   min-height: 100vh;
+}
+
+#Card {
+  margin-top: 40px;
+  background-color: rgb(255, 255, 255);
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 3px;
+}
+
+#Header {
+  position: relative;
+  padding: 10px 15px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+#profile-picture {
+  width: 42px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#profile-info {
+  display: inline-block;
+  padding-left: 10px;
+  /* margin: auto; */
+  /* padding: 10px 10px 20px 10px; */
+}
+
+.profile-text {
+  margin: 0;
+}
+
+.location-text {
+  font-size: 14px;
+  margin-left: 0;
+}
+
+.icon {
+  margin: auto 0;
+}
+
+#post-image {
+  width: 100%;
+}
+
+#Actions {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#left-actions {
+  width: 130px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info-text {
+  padding: 0 15px;
+  margin: 0;
+}
+
+#caption {
+  padding: 1px 15px;
+  margin: 0;
+}
+
+.Comment {
+  margin: 0;
+  padding: 0.1em 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.comment-text {
+  display: inline-block;
+  margin: 0;
+}
+
+#PostComment {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  border-top: 1px solid rgb(224, 224, 224);
+}
+
+.post-comment-input {
+  height: 18px;
+  max-height: 50vh;
+  flex-grow: 1;
+  resize: none;
+  font: inherit;
+  border: 0;
+  outline: none;
+}
+
+.post-comment-button {
+  border: 0;
+  outline: none;
+  padding: 0;
+  color: #0095f6;
+  background-color: white;
+  cursor: pointer;
+  font-size: inherit;
 }
