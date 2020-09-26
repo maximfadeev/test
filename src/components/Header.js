@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
-const Header = () => {
+function Header() {
   return (
     <div id="Header">
       <div>
@@ -19,6 +19,6 @@ const Header = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Header;

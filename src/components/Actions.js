@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment, faPaperPlane, faBookmark } from "@fortawesome/free-regular-svg-icons";
 
-const Actions = () => {
+function Actions() {
   return (
     <div id="Actions">
       <div id="left-actions">
@@ -13,6 +13,6 @@ const Actions = () => {
       <FontAwesomeIcon icon={faBookmark} size="2x" />
     </div>
   );
-};
+}
 
 export default Actions;

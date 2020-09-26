@@ -1,38 +1,65 @@
 import React from "react";
 
+import { connect } from "react-redux";
+import { setCommentText, addComment } from "../actions";
+
+const mapStateToProps = (state) => {
+  return {
+    commentText: state.setCommentText.commentText,
+    comments: state.commentReducer.comments,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCommentChange: (e) => dispatch(setCommentText(e.target.value)),
+    clearComment: () => dispatch(setCommentText("")),
+    postCommentR: (comment) => {
+      dispatch(addComment(comment));
+    },
+  };
+};
+
 class PostComment extends React.Component {
   constructor() {
     super();
     this.state = {
       value: "",
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.postCommentRedux = this.postCommentRedux.bind(this);
+    this.onCommentChange = this.onCommentChange.bind(this);
   }
 
-  handleChange(event) {
+  onCommentChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit(event) {
-    let comments = JSON.parse(localStorage.getItem("comments"));
-    comments.push({ name: "username", text: this.state.value });
-    localStorage.setItem("comments", JSON.stringify(comments));
-    this.setState({ value: "" });
-    event.preventDefault();
+  postCommentRedux(e) {
+    e.preventDefault();
+    this.props.postCommentR({ name: "test", text: this.state.value });
   }
+
+  // postComment(e) {
+  //   let comments = JSON.parse(localStorage.getItem("comments"));
+  //   comments.push({ name: "username", text: this.props.commentText });
+  //   localStorage.setItem("comments", JSON.stringify(comments));
+  //   this.setState({ value: "" });
+  //   // this.props.clearComment();
+  //   e.preventDefault();
+  // }
 
   render() {
     return (
-      <form id="PostComment" onSubmit={this.handleSubmit}>
+      <form id="PostComment" onSubmit={this.postCommentRedux}>
         <textarea
           type="text"
           className="post-comment-input"
           placeholder="Add a comment..."
           value={this.state.value}
-          onChange={this.handleChange}
+          onChange={this.onCommentChange}
         ></textarea>
-        <button type="submit" className="post-comment-button">
+        <button type="submit" className="post-comment-btn">
           <b>Post</b>
         </button>
       </form>
@@ -40,26 +67,4 @@ class PostComment extends React.Component {
   }
 }
 
-export default PostComment;
-
-// const PostComment = () => {
-//   function submitPost(e) {
-//     e.preventDefault();
-//     console.log(e.target);
-//   }
-
-//   return (
-//     <form id="PostComment" onSubmit={submitPost}>
-//       <textarea
-//         type="text"
-//         className="post-comment-input"
-//         placeholder="Add a comment..."
-//       ></textarea>
-//       <button type="submit" className="post-comment-button">
-//         <b>Post</b>
-//       </button>
-//     </form>
-//   );
-// };
-
-// export default PostComment;
+export default connect(mapStateToProps, mapDispatchToProps)(PostComment);

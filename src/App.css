@@ -107,7 +107,7 @@ body {
   outline: none;
 }
 
-.post-comment-button {
+.post-comment-btn {
   border: 0;
   outline: none;
   padding: 0;
@@ -115,4 +115,15 @@ body {
   background-color: white;
   cursor: pointer;
   font-size: inherit;
+}
+
+.view-comments-btn {
+  border: 0;
+  outline: none;
+  padding: 0;
+  color: rgb(142, 142, 142);
+  background-color: white;
+  font-size: inherit;
+  padding: 0.1em 15px;
+  cursor: pointer;
 }
