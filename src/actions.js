@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES } from "./types";
+import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES, TOGGLE_REPLY } from "./types";
 
 // find a better place and name for these
 let getComments = function (key) {
@@ -50,5 +50,11 @@ export const setLikes = (comment) => {
   return {
     type: SET_LIKES,
     payload: comment,
+  };
+};
+
+export const toggleReply = () => {
+  return {
+    type: TOGGLE_REPLY,
   };
 };

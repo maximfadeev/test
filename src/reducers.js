@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES } from "./types";
+import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES, TOGGLE_REPLY } from "./types";
 
 const initialStateComments = {
   comments: [],
@@ -62,6 +62,19 @@ export const toggleLandscapeReducer = (state = initialStateLandscape, action = {
   switch (action.type) {
     case TOGGLE_LANDSCAPE:
       return { ...state, isLandscape: !state.isLandscape };
+    default:
+      return state;
+  }
+};
+
+const initialStateReply = {
+  isReply: false,
+};
+
+export const toggleReplyReducer = (state = initialStateReply, action = {}) => {
+  switch (action.type) {
+    case TOGGLE_REPLY:
+      return { ...state, isReply: !state.isReply };
     default:
       return state;
   }

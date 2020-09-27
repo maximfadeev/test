@@ -7,12 +7,13 @@ const mapStateToProps = (state) => {
   return {
     // commentText: state.setCommentText.commentText,
     comments: state.commentReducer.comments,
+    isReply: state.toggleReplyReducer.isReply,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onCommentChange: (e) => dispatch(setCommentText(e.target.value)),
+    // onTextChange: (e) => dispatch(setCommentText(e.target.value)),
     // clearComment: () => dispatch(setCommentText("")),
     postCommentToDb: (comment) => {
       dispatch(addComment(comment));
@@ -27,15 +28,22 @@ class PostComment extends React.Component {
       value: "",
     };
 
-    this.onCommentChange = this.onCommentChange.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
     this.onCommentSubmit = this.onCommentSubmit.bind(this);
+    this.onReplySubmit = this.onReplySubmit.bind(this);
   }
 
-  onCommentChange(event) {
+  onTextChange(event) {
     this.setState({ value: event.target.value });
   }
 
   onCommentSubmit(e) {
+    e.preventDefault();
+    this.props.postCommentToDb({ name: "username", text: this.state.value, likes: 0 });
+    this.setState({ value: "" });
+  }
+
+  onReplySubmit(e) {
     e.preventDefault();
     this.props.postCommentToDb({ name: "username", text: this.state.value, likes: 0 });
     this.setState({ value: "" });
@@ -51,6 +59,22 @@ class PostComment extends React.Component {
   // }
 
   render() {
+    if (this.props.isReply) {
+      return (
+        <form id="PostComment" onSubmit={this.onReplySubmit}>
+          <textarea
+            type="text"
+            className="post-comment-input"
+            placeholder="Add a comment..."
+            value={this.state.value}
+            onChange={this.onTextChange}
+          ></textarea>
+          <button type="submit" className="post-comment-btn btn">
+            <b>Reply</b>
+          </button>
+        </form>
+      );
+    }
     return (
       <form id="PostComment" onSubmit={this.onCommentSubmit}>
         <textarea
@@ -58,7 +82,7 @@ class PostComment extends React.Component {
           className="post-comment-input"
           placeholder="Add a comment..."
           value={this.state.value}
-          onChange={this.onCommentChange}
+          onChange={this.onTextChange}
         ></textarea>
         <button type="submit" className="post-comment-btn btn">
           <b>Post</b>

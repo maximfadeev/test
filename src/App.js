@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Actions from "./components/Actions";
 import Comment from "./components/Comment";
 import PostComment from "./components/PostComment";
+import Avatar from "./components/Avatar";
 
 import { connect } from "react-redux";
 import { getCommentsFromDb, toggleLandscape } from "./actions";
@@ -16,6 +17,7 @@ class App extends React.Component {
   // componentWillMount() {
   //   console.log(this.props.getCommentsFromDb());
   // }
+
   componentDidMount() {
     this.props.getCommentsFromDb();
   }
@@ -38,7 +40,7 @@ class App extends React.Component {
             <b>
               <p className="info-text">56 likes</p>
             </b>
-            <div id="caption">
+            <div className="Comment">
               <p className="comment-text">
                 <b>nasa</b>&nbsp;Caption for my post
               </p>
@@ -61,11 +63,13 @@ class App extends React.Component {
             </div>
             <div className="landscape-right">
               <Header />
-              <div id="caption">
-                <p className="comment-text">
-                  <b>nasa</b>&nbsp;Caption for my post
-                </p>
+
+              <div className="Comment">
+                <Avatar />
+
+                <p className="comment-text center-vertical">Caption for my post</p>
               </div>
+
               <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
                 <b>Hide all {this.props.comments.length} comments</b>
               </button>
