@@ -1,20 +1,20 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { setCommentText, addComment } from "../actions";
+import { addComment } from "../actions";
 
 const mapStateToProps = (state) => {
   return {
-    commentText: state.setCommentText.commentText,
+    // commentText: state.setCommentText.commentText,
     comments: state.commentReducer.comments,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCommentChange: (e) => dispatch(setCommentText(e.target.value)),
-    clearComment: () => dispatch(setCommentText("")),
-    postCommentR: (comment) => {
+    // onCommentChange: (e) => dispatch(setCommentText(e.target.value)),
+    // clearComment: () => dispatch(setCommentText("")),
+    postCommentToDb: (comment) => {
       dispatch(addComment(comment));
     },
   };
@@ -27,17 +27,18 @@ class PostComment extends React.Component {
       value: "",
     };
 
-    this.postCommentRedux = this.postCommentRedux.bind(this);
     this.onCommentChange = this.onCommentChange.bind(this);
+    this.onCommentSubmit = this.onCommentSubmit.bind(this);
   }
 
   onCommentChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  postCommentRedux(e) {
+  onCommentSubmit(e) {
     e.preventDefault();
-    this.props.postCommentR({ name: "test", text: this.state.value });
+    this.props.postCommentToDb({ name: "username", text: this.state.value, likes: 0 });
+    this.setState({ value: "" });
   }
 
   // postComment(e) {
@@ -51,7 +52,7 @@ class PostComment extends React.Component {
 
   render() {
     return (
-      <form id="PostComment" onSubmit={this.postCommentRedux}>
+      <form id="PostComment" onSubmit={this.onCommentSubmit}>
         <textarea
           type="text"
           className="post-comment-input"
@@ -59,7 +60,7 @@ class PostComment extends React.Component {
           value={this.state.value}
           onChange={this.onCommentChange}
         ></textarea>
-        <button type="submit" className="post-comment-btn">
+        <button type="submit" className="post-comment-btn btn">
           <b>Post</b>
         </button>
       </form>

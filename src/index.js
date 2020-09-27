@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import { setCommentText, commentReducer, toggleLandscapeReducer } from "./reducers";
+import { commentReducer, toggleLandscapeReducer } from "./reducers";
 // import { getCommentsFromDb } from "./actions";
 
 // import { store } from "./store";
@@ -15,13 +15,18 @@ import { setCommentText, commentReducer, toggleLandscapeReducer } from "./reduce
 // const store = createStore(getCommentsFromDb);
 // const store = createStore(() => [], {});
 
+// initialise db if it has not been initialised
+if (localStorage.getItem("comments") == null) {
+  localStorage.setItem("comments", "[]");
+}
+
 const rootReducer = combineReducers({
   commentReducer,
-  setCommentText,
   toggleLandscapeReducer,
 });
 
 const store = createStore(rootReducer);
+// console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
