@@ -8,22 +8,14 @@ import PostComment from "./components/PostComment";
 import { connect } from "react-redux";
 import { getCommentsFromDb, toggleLandscape } from "./actions";
 
-// let comment1 = { name: "taxi", text: "hello what is good" };
-// let comments = [comment1];
-// localStorage.setItem("comments", JSON.stringify(comments));
-
 class App extends React.Component {
-  // componentWillMount() {
-  //   console.log(this.props.getCommentsFromDb());
-  // }
-
   componentDidMount() {
     this.props.getCommentsFromDb();
   }
 
   getCommentsBeta() {
     const comments = this.props.comments.map((comment, index) => (
-      <Comment key={index} comment={comment} />
+      <Comment key={index} comment={{ ...comment }} />
     ));
     return comments;
   }
@@ -31,9 +23,14 @@ class App extends React.Component {
   render() {
     const hours = <p className="info-text hours">14 hours ago</p>;
 
-    const comments = this.props.comments.map((comment, index) => (
-      <Comment key={index} comment={comment} />
-    ));
+    let comments = this.props.comments;
+    if (this.props.isLandscape) {
+      comments = comments.map((comment, index) => <Comment key={index} comment={comment} />);
+    } else {
+      comments = comments
+        .slice(Math.max(comments.length - 4, 0))
+        .map((comment, index) => <Comment key={index} comment={comment} />);
+    }
 
     if (!this.props.isLandscape) {
       return (

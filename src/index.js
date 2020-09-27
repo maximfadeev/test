@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import { commentReducer, toggleLandscapeReducer, toggleReplyReducer } from "./reducers";
-// import { getCommentsFromDb } from "./actions";
+import { getCommentsFromDb } from "./actions";
 
 // import { store } from "./store";
 
@@ -27,8 +27,6 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer);
-
-// console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>

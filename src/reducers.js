@@ -12,6 +12,7 @@ export const commentReducer = (state = initialStateComments, action = {}) => {
       return { ...state, comments: [...state.comments, action.payload] };
 
     case SET_LIKES: // this can definitely be better
+      console.log("payload", action.payload);
       return {
         ...state,
         comments: [
@@ -25,34 +26,6 @@ export const commentReducer = (state = initialStateComments, action = {}) => {
       return state;
   }
 };
-
-// const initialStateLikes = {
-//   likes: 0,
-// };
-
-// export const likeReducer = (state = initialStateLikes, action = {}) => {
-//   switch (action.type) {
-//     case LIKE_COMMENT:
-//       console.log(...state);
-//       return { ...state };
-//     default:
-//       return state;
-//   }
-// };
-
-// const initialStateCommentText = {
-//   commentText: "",
-// };
-
-// export const setCommentText = (state = initialStateCommentText, action = {}) => {
-//   switch (action.type) {
-//     case CHANGE_COMMENT_TEXT:
-//       // change to ...
-//       return Object.assign({}, state, { commentText: action.payload });
-//     default:
-//       return state;
-//   }
-// };
 
 const initialStateLandscape = {
   isLandscape: false,

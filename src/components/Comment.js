@@ -4,12 +4,11 @@ import CommentFooter from "./CommentFooter";
 import { connect } from "react-redux";
 import { setLikes, toggleLandscape } from "../actions";
 
+// change to funciton
 class Comment extends React.Component {
   constructor() {
     super();
-    this.state = {
-      isLiked: false,
-    };
+
     this.toggleLiked = this.toggleLiked.bind(this);
     this.getAvatar = this.getAvatar.bind(this);
   }
@@ -17,16 +16,15 @@ class Comment extends React.Component {
   changeLikes(n) {
     let comment = this.props.comment;
     comment.likes += n;
+    comment.isLiked = !comment.isLiked;
     this.props.setLikes(comment);
   }
 
   toggleLiked() {
-    if (this.state.isLiked) {
-      this.setState({ isLiked: false });
+    if (this.props.comment.isLiked) {
       this.changeLikes(-1);
     } else {
       this.changeLikes(1);
-      this.setState({ isLiked: true });
     }
   }
 
@@ -51,12 +49,11 @@ class Comment extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="Comment">
         {this.getAvatar()}
         <button className="btn like-btn " onClick={this.toggleLiked}>
-          <LikeButtonIcon isLiked={this.state.isLiked} />
+          <LikeButtonIcon isLiked={this.props.comment.isLiked} />
         </button>
       </div>
     );

@@ -1,11 +1,4 @@
-import {
-  FETCH_COMMENTS,
-  ADD_COMMENT,
-  TOGGLE_LANDSCAPE,
-  SET_LIKES,
-  TOGGLE_REPLY,
-  ADD_REPLY,
-} from "./types";
+import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES, TOGGLE_REPLY } from "./types";
 
 // find a better place and name for these
 let getComments = function (key) {
@@ -29,29 +22,20 @@ export const getCommentsFromDb = () => {
 export const addComment = (comment) => {
   const comments = getComments("comments");
   const id = comments.length;
-  comment.id = id; // !!!!!!!!! check if this is ok
-  comments.push(comment);
+  comment.id = id;
+
+  let commentToDb = { ...comment };
+  delete commentToDb.isLiked;
+
+  comments.push(commentToDb);
   setComments("comments", comments);
 
+  console.log("mndf,sndflk", comment);
   return {
     type: ADD_COMMENT,
     payload: comment,
   };
 };
-
-// export const addReply = (comment) => {
-//   return {
-//     type: ADD_REPLY,
-//     payload: comment,
-//   };
-// };
-
-// export const setCommentText = (text) => {
-//   return {
-//     type: CHANGE_COMMENT_TEXT,
-//     payload: text,
-//   };
-// };
 
 export const toggleLandscape = () => {
   return {
@@ -60,9 +44,30 @@ export const toggleLandscape = () => {
 };
 
 export const setLikes = (comment) => {
-  const comments = getComments("comments");
-  comments[comment.id] = comment;
+  const comments = getComments("comments"); // way to do it without retreiving the whole db
+
+  let commentToDb = { ...comment };
+  delete commentToDb.isLiked;
+
+  comments[comment.id] = commentToDb;
   setComments("comments", comments);
+
+  return {
+    type: SET_LIKES,
+    payload: comment,
+  };
+};
+
+export const setReplyIsLiked = (commentId, reply) => {
+  const comments = getComments("comments"); // way to do it without retreiving the whole db
+  let comment = comments[commentId];
+  const isReplyLiked = reply.isReplyLiked;
+  delete reply.isReplyLiked;
+  comment.replies[reply.id] = reply;
+  comments[commentId] = comment;
+  setComments("comments", comments);
+  reply = { ...reply, isReplyLiked };
+  comment.replies[reply.id] = reply;
 
   return {
     type: SET_LIKES,

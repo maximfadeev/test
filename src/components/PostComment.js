@@ -1,7 +1,7 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { addComment, setLikes } from "../actions";
+import { addComment, setLikes, setReplyIsLiked } from "../actions";
 
 class PostComment extends React.Component {
   constructor() {
@@ -21,20 +21,37 @@ class PostComment extends React.Component {
 
   onCommentSubmit(e) {
     e.preventDefault();
-    this.props.addComment({ name: "username", text: this.state.value, likes: 0, replies: [] });
+    this.props.addComment(
+      {
+        name: "username",
+        text: this.state.value,
+        likes: 0,
+        replies: [],
+        isLiked: false,
+      },
+      false
+    );
     this.setState({ value: "" });
   }
 
   onReplySubmit(e) {
     e.preventDefault();
     let comment = this.props.comments[this.props.reply.commentId];
-    comment.replies.push({
+    let replyId = comment.replies.length;
+
+    const newReply = {
       name: "username",
       text: this.state.value,
       likes: 0,
-      id: comment.replies.length,
-    });
-    this.props.setLikes(comment);
+      id: replyId,
+      isReplyLiked: false,
+    };
+
+    // comment.replies.push(newReply);
+    // console.log("onReplySubmit", comment.replies);
+
+    this.props.setReplyIsLiked(this.props.reply.commentId, newReply);
+
     this.setState({ value: "" });
   }
 
@@ -101,4 +118,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(PostComment);
-export default connect(mapStateToProps, { addComment, setLikes })(PostComment);
+export default connect(mapStateToProps, { addComment, setLikes, setReplyIsLiked })(PostComment);
