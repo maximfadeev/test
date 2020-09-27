@@ -1,6 +1,5 @@
 import React from "react";
 import LikeButtonIcon from "./LikeButton";
-import Avatar from "./Avatar";
 import { connect } from "react-redux";
 import { setLikes } from "../actions";
 
@@ -41,12 +40,16 @@ class Reply extends React.Component {
   render() {
     return (
       <div className="Comment">
-        <Avatar />
+        <img src="profile-picture.png" alt="profile" className="user-picture"></img>
         <div className="comment-landscape">
-          <p className="comment-text center-vertical">{this.props.reply.text}</p>
-          <p>{this.props.reply.likes} likes</p>
+          <p className="comment-text ">
+            <b>{this.props.reply.name}</b>&nbsp;{this.props.reply.text}
+          </p>
+          <div className="likes-replies">
+            <p className="likes-count">{this.props.reply.likes} likes</p>
+          </div>
         </div>
-        <button className="btn" onClick={this.toggleLiked}>
+        <button className="btn like-btn" onClick={this.toggleLiked}>
           <LikeButtonIcon isLiked={this.state.isLiked} />
         </button>
       </div>

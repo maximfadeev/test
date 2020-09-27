@@ -48,6 +48,7 @@ class PostComment extends React.Component {
   // }
 
   render() {
+    const btnDisabled = this.state.value.length === 0;
     if (this.props.reply.isReply) {
       return (
         <form id="PostComment" onSubmit={this.onReplySubmit}>
@@ -58,7 +59,7 @@ class PostComment extends React.Component {
             value={this.state.value}
             onChange={this.onTextChange}
           ></textarea>
-          <button type="submit" className="post-comment-btn btn">
+          <button type="submit" className="post-comment-btn btn" disabled={btnDisabled}>
             <b>Reply</b>
           </button>
         </form>
@@ -73,7 +74,7 @@ class PostComment extends React.Component {
           value={this.state.value}
           onChange={this.onTextChange}
         ></textarea>
-        <button type="submit" className="post-comment-btn btn">
+        <button type="submit" className="post-comment-btn btn" disabled={btnDisabled}>
           <b>Post</b>
         </button>
       </form>

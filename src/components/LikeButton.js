@@ -5,9 +5,9 @@ import { faHeart as hollowHeart } from "@fortawesome/free-regular-svg-icons";
 
 function LikeButtonIcon(props) {
   if (props.isLiked) {
-    return <FontAwesomeIcon className="like-btn liked" icon={solidHeart} />;
+    return <FontAwesomeIcon className="like-btn-landscape like-btn liked" icon={solidHeart} />;
   } else {
-    return <FontAwesomeIcon className="like-btn" icon={hollowHeart} />;
+    return <FontAwesomeIcon className="like-btn-landscape like-btn" icon={hollowHeart} />;
   }
 }
 

@@ -1,6 +1,5 @@
 import React from "react";
 import LikeButtonIcon from "./LikeButton";
-import Avatar from "./Avatar";
 import CommentFooter from "./CommentFooter";
 import { connect } from "react-redux";
 import { setLikes, toggleLandscape } from "../actions";
@@ -40,9 +39,11 @@ class Comment extends React.Component {
       );
     } else {
       return [
-        <Avatar />,
+        <img src="profile-picture.png" alt="profile" className="user-picture"></img>,
         <div className="comment-landscape">
-          <p className="comment-text center-vertical">{this.props.comment.text}</p>
+          <p className="comment-text">
+            <b>{this.props.comment.name}</b>&nbsp;{this.props.comment.text}
+          </p>
           <CommentFooter comment={this.props.comment} />
         </div>,
       ];
@@ -53,7 +54,7 @@ class Comment extends React.Component {
     return (
       <div className="Comment">
         {this.getAvatar()}
-        <button className="btn" onClick={this.toggleLiked}>
+        <button className="btn like-btn " onClick={this.toggleLiked}>
           <LikeButtonIcon isLiked={this.state.isLiked} />
         </button>
       </div>

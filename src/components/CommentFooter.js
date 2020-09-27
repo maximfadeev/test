@@ -32,13 +32,13 @@ class CommentFooter extends React.Component {
   render() {
     return (
       <div className="CommentFooter">
-        <div className="horizontal-flex">
-          <p>{this.props.comment.likes} likes</p>
-          <button className="btn" onClick={this.onReply}>
+        <div className="likes-replies">
+          <p className="likes-count">{this.props.comment.likes} likes</p>
+          <button className="btn reply-btn" onClick={this.onReply}>
             Reply
           </button>
         </div>
-        <button className="btn" onClick={this.toggleShowReplies}>
+        <button className="btn view-replies-btn" onClick={this.toggleShowReplies}>
           View replies
         </button>
         <div className="replies">{this.getReplies()}</div>

@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Actions from "./components/Actions";
 import Comment from "./components/Comment";
 import PostComment from "./components/PostComment";
-import Avatar from "./components/Avatar";
 
 import { connect } from "react-redux";
 import { getCommentsFromDb, toggleLandscape } from "./actions";
@@ -30,6 +29,8 @@ class App extends React.Component {
   }
 
   render() {
+    const hours = <p className="info-text hours">14 hours ago</p>;
+
     if (!this.props.isLandscape) {
       return (
         <div className="center">
@@ -40,16 +41,21 @@ class App extends React.Component {
             <b>
               <p className="info-text">56 likes</p>
             </b>
-            <div className="Comment">
-              <p className="comment-text">
-                <b>nasa</b>&nbsp;Caption for my post
-              </p>
+
+            <div className="comments-vertical">
+              <div className="Comment">
+                <p className="comment-text">
+                  <b>nasa</b>&nbsp;Starry night
+                </p>
+              </div>
+              <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
+                <b>View all {this.props.comments.length} comments</b>
+              </button>
+              {this.getCommentsBeta()}
             </div>
-            <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
-              <b>View all {this.props.comments.length} comments</b>
-            </button>
-            {this.getCommentsBeta()}
-            <p className="info-text">14 hours ago</p>
+
+            {hours}
+
             <PostComment />
           </div>
         </div>
@@ -64,21 +70,25 @@ class App extends React.Component {
             <div className="landscape-right">
               <Header />
 
-              <div className="Comment">
-                <Avatar />
-
-                <p className="comment-text center-vertical">Caption for my post</p>
+              <div className="comments-landscape">
+                <div className="Comment">
+                  <img src="nasa-profile.png" alt="profile" className="poster-picture"></img>
+                  <div className="comment-landscape">
+                    <p className="comment-text ">
+                      <b>nasa</b>&nbsp;Starry night
+                    </p>
+                  </div>
+                </div>
+                <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
+                  <b>Hide all {this.props.comments.length} comments</b>
+                </button>
+                {this.getCommentsBeta()}
               </div>
-
-              <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
-                <b>Hide all {this.props.comments.length} comments</b>
-              </button>
-              <div className="comments-landscape">{this.getCommentsBeta()}</div>
               <Actions />
               <b>
                 <p className="info-text">56 likes</p>
               </b>
-              <p className="info-text">14 hours ago</p>
+              {hours}
 
               <PostComment />
             </div>
