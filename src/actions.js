@@ -1,4 +1,11 @@
-import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES, TOGGLE_REPLY } from "./types";
+import {
+  FETCH_COMMENTS,
+  ADD_COMMENT,
+  TOGGLE_LANDSCAPE,
+  SET_LIKES,
+  TOGGLE_REPLY,
+  ADD_REPLY,
+} from "./types";
 
 // find a better place and name for these
 let getComments = function (key) {
@@ -29,6 +36,13 @@ export const addComment = (comment) => {
   };
 };
 
+// export const addReply = (comment) => {
+//   return {
+//     type: ADD_REPLY,
+//     payload: comment,
+//   };
+// };
+
 // export const setCommentText = (text) => {
 //   return {
 //     type: CHANGE_COMMENT_TEXT,
@@ -53,8 +67,9 @@ export const setLikes = (comment) => {
   };
 };
 
-export const toggleReply = () => {
+export const toggleReply = (replyState) => {
   return {
     type: TOGGLE_REPLY,
+    payload: replyState,
   };
 };

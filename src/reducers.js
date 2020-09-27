@@ -68,13 +68,13 @@ export const toggleLandscapeReducer = (state = initialStateLandscape, action = {
 };
 
 const initialStateReply = {
-  isReply: false,
+  reply: { isReplying: false, commentId: null },
 };
 
 export const toggleReplyReducer = (state = initialStateReply, action = {}) => {
   switch (action.type) {
     case TOGGLE_REPLY:
-      return { ...state, isReply: !state.isReply };
+      return { ...state, reply: action.payload };
     default:
       return state;
   }

@@ -12,6 +12,7 @@ class Comment extends React.Component {
       isLiked: false,
     };
     this.toggleLiked = this.toggleLiked.bind(this);
+    this.getAvatar = this.getAvatar.bind(this);
   }
 
   changeLikes(n) {
@@ -21,7 +22,6 @@ class Comment extends React.Component {
   }
 
   toggleLiked() {
-    console.log(this.props.comments);
     if (this.state.isLiked) {
       this.setState({ isLiked: false });
       this.changeLikes(-1);
@@ -31,33 +31,41 @@ class Comment extends React.Component {
     }
   }
 
-  render() {
+  getAvatar() {
     if (!this.props.isLandscape) {
       return (
-        <div className="Comment">
-          <p className="comment-text">
-            <b>{this.props.comment.name}</b>&nbsp;{this.props.comment.text}
-          </p>
-          <button className="btn" onClick={this.toggleLiked}>
-            <LikeButtonIcon isLiked={this.state.isLiked} />
-          </button>
-        </div>
+        <p className="comment-text">
+          <b>{this.props.comment.name}</b>&nbsp;{this.props.comment.text}
+        </p>
       );
+    } else if (this.props.isReply) {
+      return [
+        <Avatar />,
+        <div className="comment-landscape">
+          <p className="comment-text center-vertical">{this.props.comment.text}</p>
+          <p>{this.props.comment.likes} likes</p>
+        </div>,
+      ];
     } else {
-      return (
-        <div className="Comment">
-          <Avatar />
-          <div className="comment-landscape">
-            <p className="comment-text center-vertical">{this.props.comment.text}</p>
-            <CommentFooter comment={this.props.comment} />
-          </div>
-
-          <button className="btn" onClick={this.toggleLiked}>
-            <LikeButtonIcon isLiked={this.state.isLiked} />
-          </button>
-        </div>
-      );
+      return [
+        <Avatar />,
+        <div className="comment-landscape">
+          <p className="comment-text center-vertical">{this.props.comment.text}</p>
+          <CommentFooter comment={this.props.comment} />
+        </div>,
+      ];
     }
+  }
+
+  render() {
+    return (
+      <div className="Comment">
+        {this.getAvatar()}
+        <button className="btn" onClick={this.toggleLiked}>
+          <LikeButtonIcon isLiked={this.state.isLiked} />
+        </button>
+      </div>
+    );
   }
 }
 const mapStateToProps = (state) => ({

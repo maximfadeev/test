@@ -1,17 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleReply } from "../actions";
+import Comment from "./Comment";
 
 class CommentFooter extends React.Component {
   constructor() {
     super();
-    this.state = {};
-    // this.toggleLiked = this.toggleLiked.bind(this);
+    this.state = {
+      showingReplies: false,
+    };
     this.onReply = this.onReply.bind(this);
+    this.toggleShowReplies = this.toggleShowReplies.bind(this);
+    this.getReplies = this.getReplies.bind(this);
   }
 
   onReply(e) {
-    this.props.toggleReply();
+    this.props.toggleReply({ isReply: true, commentId: this.props.comment.id });
+  }
+
+  toggleShowReplies() {
+    this.setState({ showingReplies: !this.state.showingReplies });
+  }
+
+  getReplies() {
+    console.log("c", this.props.comment);
+    const replies = this.props.comment.replies.map((reply, index) => (
+      <Comment key={index} isReply={true} comment={reply} />
+    ));
+    return replies;
   }
 
   render() {
@@ -23,15 +39,18 @@ class CommentFooter extends React.Component {
             Reply
           </button>
         </div>
-        <button className="btn">View replies</button>
+        <button className="btn" onClick={this.toggleShowReplies}>
+          View replies
+        </button>
+        <div className="replies">{this.getReplies()}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  isReply: state.toggleReplyReducer.isReply,
+  reply: state.toggleReplyReducer.reply,
+  comments: state.commentReducer.comments,
 });
 
-// export default Comment;
 export default connect(mapStateToProps, { toggleReply })(CommentFooter);

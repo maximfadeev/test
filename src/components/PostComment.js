@@ -1,25 +1,7 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { addComment } from "../actions";
-
-const mapStateToProps = (state) => {
-  return {
-    // commentText: state.setCommentText.commentText,
-    comments: state.commentReducer.comments,
-    isReply: state.toggleReplyReducer.isReply,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // onTextChange: (e) => dispatch(setCommentText(e.target.value)),
-    // clearComment: () => dispatch(setCommentText("")),
-    postCommentToDb: (comment) => {
-      dispatch(addComment(comment));
-    },
-  };
-};
+import { addComment, setLikes } from "../actions";
 
 class PostComment extends React.Component {
   constructor() {
@@ -39,13 +21,18 @@ class PostComment extends React.Component {
 
   onCommentSubmit(e) {
     e.preventDefault();
-    this.props.postCommentToDb({ name: "username", text: this.state.value, likes: 0 });
+    this.props.addComment({ name: "username", text: this.state.value, likes: 0, replies: [] });
     this.setState({ value: "" });
   }
 
   onReplySubmit(e) {
     e.preventDefault();
-    this.props.postCommentToDb({ name: "username", text: this.state.value, likes: 0 });
+    console.log("comments", this.props.comments[0]);
+    console.log("id", this.props.comments[this.props.reply.id]);
+    let comment = this.props.comments[this.props.reply.commentId];
+    console.log("comment", comment);
+    comment.replies.push({ name: "username", text: this.state.value, likes: 0 });
+    this.props.setLikes(comment);
     this.setState({ value: "" });
   }
 
@@ -59,7 +46,7 @@ class PostComment extends React.Component {
   // }
 
   render() {
-    if (this.props.isReply) {
+    if (this.props.reply.isReply) {
       return (
         <form id="PostComment" onSubmit={this.onReplySubmit}>
           <textarea
@@ -92,4 +79,23 @@ class PostComment extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostComment);
+const mapStateToProps = (state) => {
+  return {
+    // commentText: state.setCommentText.commentText,
+    comments: state.commentReducer.comments,
+    reply: state.toggleReplyReducer.reply,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // onTextChange: (e) => dispatch(setCommentText(e.target.value)),
+    // clearComment: () => dispatch(setCommentText("")),
+    // postCommentToDb: (comment) => {
+    //   dispatch(addComment(comment));
+    // },
+  };
+};
+
+// export default connect(mapStateToProps, mapDispatchToProps)(PostComment);
+export default connect(mapStateToProps, { addComment, setLikes })(PostComment);
