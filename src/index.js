@@ -27,6 +27,7 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer);
+
 // console.log(store.getState());
 
 ReactDOM.render(

@@ -31,6 +31,10 @@ class App extends React.Component {
   render() {
     const hours = <p className="info-text hours">14 hours ago</p>;
 
+    const comments = this.props.comments.map((comment, index) => (
+      <Comment key={index} comment={comment} />
+    ));
+
     if (!this.props.isLandscape) {
       return (
         <div className="center">
@@ -51,7 +55,8 @@ class App extends React.Component {
               <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
                 <b>View all {this.props.comments.length} comments</b>
               </button>
-              {this.getCommentsBeta()}
+              {/* {this.getCommentsBeta()} */}
+              {comments}
             </div>
 
             {hours}
@@ -82,7 +87,8 @@ class App extends React.Component {
                 <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
                   <b>Hide all {this.props.comments.length} comments</b>
                 </button>
-                {this.getCommentsBeta()}
+                {/* {this.getCommentsBeta()} */}
+                {comments}
               </div>
               <Actions />
               <b>

@@ -9,17 +9,21 @@ class CommentFooter extends React.Component {
     this.state = {
       showingReplies: false,
     };
-    this.onReply = this.onReply.bind(this);
+    this.onReplyPress = this.onReplyPress.bind(this);
     this.toggleShowReplies = this.toggleShowReplies.bind(this);
     this.getReplies = this.getReplies.bind(this);
   }
 
-  onReply(e) {
-    this.props.toggleReply({ isReply: true, commentId: this.props.comment.id });
+  onReplyPress(e) {
+    if (this.props.reply.isReplying && this.props.reply.commentId === this.props.comment.id) {
+      this.props.toggleReply({ isReplying: false, commentId: null });
+    } else {
+      this.props.toggleReply({ isReplying: true, commentId: this.props.comment.id });
+    }
   }
 
   toggleShowReplies() {
-    this.setState({ showingReplies: !this.state.showingReplies });
+    this.setState({ ...this.state, showingReplies: !this.state.showingReplies });
   }
 
   getReplies() {
@@ -30,18 +34,33 @@ class CommentFooter extends React.Component {
   }
 
   render() {
+    let replyButtonText;
+    if (this.props.reply.isReplying && this.props.comment.id === this.props.reply.commentId) {
+      replyButtonText = "Cancel";
+    } else {
+      replyButtonText = "Reply";
+    }
+
+    let repliesText, repliesDisplay;
+    if (this.state.showingReplies) {
+      repliesText = "Hide";
+      repliesDisplay = "replies";
+    } else {
+      repliesText = "View";
+      repliesDisplay = "replies-hidden";
+    }
     return (
       <div className="CommentFooter">
         <div className="likes-replies">
           <p className="likes-count">{this.props.comment.likes} likes</p>
-          <button className="btn reply-btn" onClick={this.onReply}>
-            Reply
+          <button className="btn reply-btn" onClick={this.onReplyPress}>
+            {replyButtonText}
           </button>
         </div>
         <button className="btn view-replies-btn" onClick={this.toggleShowReplies}>
-          View replies
+          {repliesText} replies
         </button>
-        <div className="replies">{this.getReplies()}</div>
+        <div className={repliesDisplay}>{this.getReplies()}</div>
       </div>
     );
   }

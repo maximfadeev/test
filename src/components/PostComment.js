@@ -49,7 +49,7 @@ class PostComment extends React.Component {
 
   render() {
     const btnDisabled = this.state.value.length === 0;
-    if (this.props.reply.isReply) {
+    if (this.props.reply.isReplying) {
       return (
         <form id="PostComment" onSubmit={this.onReplySubmit}>
           <textarea

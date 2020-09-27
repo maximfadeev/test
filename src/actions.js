@@ -9,7 +9,12 @@ import {
 
 // find a better place and name for these
 let getComments = function (key) {
-  return JSON.parse(localStorage.getItem(key));
+  let comments = localStorage.getItem(key);
+  if (comments === null) {
+    return [];
+  } else {
+    return JSON.parse(localStorage.getItem(key));
+  }
 };
 
 let setComments = function (key, val) {
@@ -23,12 +28,10 @@ export const getCommentsFromDb = () => {
 
 export const addComment = (comment) => {
   const comments = getComments("comments");
-  // const comments = JSON.parse(localStorage.getItem("comments"));
   const id = comments.length;
   comment.id = id; // !!!!!!!!! check if this is ok
   comments.push(comment);
   setComments("comments", comments);
-  // localStorage.setItem("comments", JSON.stringify(comments));
 
   return {
     type: ADD_COMMENT,
