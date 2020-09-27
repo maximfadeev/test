@@ -1,7 +1,7 @@
 import React from "react";
 import LikeButtonIcon from "./LikeButton";
 import { connect } from "react-redux";
-import { addLike } from "../actions";
+import { setLikes } from "../actions";
 
 class Comment extends React.Component {
   constructor() {
@@ -12,14 +12,19 @@ class Comment extends React.Component {
     this.toggleLiked = this.toggleLiked.bind(this);
   }
 
+  changeLikes(n) {
+    let comment = this.props.comment;
+    comment.likes += n;
+    this.props.setLikes(comment);
+  }
+
   toggleLiked() {
+    console.log(this.props.comments);
     if (this.state.isLiked) {
       this.setState({ isLiked: false });
+      this.changeLikes(-1);
     } else {
-      let comment = this.props.comment;
-      comment.likes += 1;
-      this.props.addLike(comment);
-      console.log(this.props);
+      this.changeLikes(1);
       this.setState({ isLiked: true });
     }
   }
@@ -42,4 +47,4 @@ const mapStateToProps = (state) => ({
 });
 
 // export default Comment;
-export default connect(mapStateToProps, { addLike })(Comment);
+export default connect(mapStateToProps, { setLikes })(Comment);

@@ -40,7 +40,7 @@ class App extends React.Component {
             </b>
             <div id="caption">
               <p className="comment-text">
-                <b>postername</b>&nbsp;Caption for my post
+                <b>nasa</b>&nbsp;Caption for my post
               </p>
             </div>
             <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>
@@ -63,7 +63,7 @@ class App extends React.Component {
               <Header />
               <div id="caption">
                 <p className="comment-text">
-                  <b>postername</b>&nbsp;Caption for my post
+                  <b>nasa</b>&nbsp;Caption for my post
                 </p>
               </div>
               <button className="view-comments-btn btn" onClick={this.props.toggleLandscape}>

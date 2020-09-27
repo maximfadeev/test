@@ -16,14 +16,14 @@ body {
 }
 
 .landscape {
-  max-width: 900px;
+  /* max-width: 900px; */
   min-width: 300px;
   display: flex;
   flex-direction: row;
 }
 
 .vertical {
-  width: 600px;
+  /* width: 600px; */
   max-width: 600px;
   min-width: 150px;
 }
@@ -31,7 +31,7 @@ body {
 .landscape-right {
   display: flex;
   flex-direction: column;
-  width: 335px;
+  width: 400px;
 }
 
 .btn {
@@ -51,12 +51,20 @@ body {
   border-bottom: 1px solid rgb(224, 224, 224);
 }
 
+.Avatar {
+  display: flex;
+  flex-direction: row;
+}
+
 #profile-picture {
   width: 42px;
 }
 
 #profile-info {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* display: inline-block; */
   padding-left: 10px;
 }
 

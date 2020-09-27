@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, LIKE_COMMENT } from "./types";
+import { FETCH_COMMENTS, ADD_COMMENT, TOGGLE_LANDSCAPE, SET_LIKES } from "./types";
 
 // find a better place and name for these
 let getComments = function (key) {
@@ -42,15 +42,13 @@ export const toggleLandscape = () => {
   };
 };
 
-export const addLike = (comment) => {
-  // localStorage.setItem("comments", JSON.stringify(...JSON.parse(localStorage.getItem("comments"))));
-
+export const setLikes = (comment) => {
   const comments = getComments("comments");
-  comments[comment.id].likes += 1;
+  comments[comment.id] = comment;
   setComments("comments", comments);
 
   return {
-    type: LIKE_COMMENT,
+    type: SET_LIKES,
     payload: comment,
   };
 };
