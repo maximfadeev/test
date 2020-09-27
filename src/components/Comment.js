@@ -38,14 +38,6 @@ class Comment extends React.Component {
           <b>{this.props.comment.name}</b>&nbsp;{this.props.comment.text}
         </p>
       );
-    } else if (this.props.isReply) {
-      return [
-        <Avatar />,
-        <div className="comment-landscape">
-          <p className="comment-text center-vertical">{this.props.comment.text}</p>
-          <p>{this.props.comment.likes} likes</p>
-        </div>,
-      ];
     } else {
       return [
         <Avatar />,

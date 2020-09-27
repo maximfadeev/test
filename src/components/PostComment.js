@@ -27,11 +27,13 @@ class PostComment extends React.Component {
 
   onReplySubmit(e) {
     e.preventDefault();
-    console.log("comments", this.props.comments[0]);
-    console.log("id", this.props.comments[this.props.reply.id]);
     let comment = this.props.comments[this.props.reply.commentId];
-    console.log("comment", comment);
-    comment.replies.push({ name: "username", text: this.state.value, likes: 0 });
+    comment.replies.push({
+      name: "username",
+      text: this.state.value,
+      likes: 0,
+      id: comment.replies.length,
+    });
     this.props.setLikes(comment);
     this.setState({ value: "" });
   }

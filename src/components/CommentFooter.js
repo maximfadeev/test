@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleReply } from "../actions";
-import Comment from "./Comment";
+import Reply from "./Reply";
 
 class CommentFooter extends React.Component {
   constructor() {
@@ -23,9 +23,8 @@ class CommentFooter extends React.Component {
   }
 
   getReplies() {
-    console.log("c", this.props.comment);
     const replies = this.props.comment.replies.map((reply, index) => (
-      <Comment key={index} isReply={true} comment={reply} />
+      <Reply key={index} commentId={this.props.comment.id} reply={reply} />
     ));
     return replies;
   }
